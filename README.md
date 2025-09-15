@@ -1,2 +1,2 @@
-aaaaaaaaaaaaaaaa  # TOP-Rock-Paper-Scissors
-The Odin Project 3
+The Odin Project #3 and the first JS assignment!
+
