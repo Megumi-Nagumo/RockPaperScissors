@@ -3,13 +3,19 @@
     margin-top: 50px;
 }
 
-.button {
-    background-color: linear-gradient(rgba(255, 186, 57, 0.8), rgba(255, 91, 200, 0.8)), rgba(157, 247, 202, 0.8);
+button {
+    background: linear-gradient(to right, #eb9aff, #feb47b, #b4fa9f);
+    color: white;
+    background-size: 200% 100%;
+    transition: background-position 0.4s ease-in-out;
     padding: 20px 20px;
     font-size: 20px;
     font-weight: 800;
     margin-top: 20px;
     cursor: pointer;
+}
+button:hover {
+    background-position: right;
 }
 
 .description {
