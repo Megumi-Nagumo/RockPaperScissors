@@ -1,38 +1,99 @@
 
-let humanScore = 0;
-let computerScore = 0;
 
-function getComputerChoice() {
-    const randomChoice = Math.floor(Math.random() * 3);
-    switch (randomChoice) {
-        case 0:
-            return "rock";
-        case 1:
-            return "paper";
-        case 2:
-            return "scissors";
-    }
-}
+const choices = ['rock', 'paper', 'scissors'];
 
-randomChoice = getComputerChoice();
-console.log(randomChoice);
 
 function getHumanChoice(){
-    let number = parseInt(prompt("Enter a number from 0 to 2"));
-      switch (number) {
-        case 0:
-            return "rock";
-        case 1:
-            return "paper";
-        case 2:
-            return "scissors";
-        default:
-            return "Invalid input";
+    // 2) user choice with prompt
+    let input= prompt("Enter Rock, Paper, or Scissors: ");
+
+    while (input === null) {
+        input = prompt("Enter Rock, Paper, or Scissors: ");
     }
+    
+    input = input.toLowerCase();
+    let check = choices.includes(input);
+
+
+    while (check === false) {
+        input = prompt("Enter Rock, Paper, or Scissors correctly, but capitalization doesn't matter: ");
+        input = input.toLowerCase();
+        check = choices.includes(input);
+
+        while (input === null) {
+        input = prompt("Enter Rock, Paper, or Scissors: ");
+    }
+    
+    input = input.toLowerCase();
+    check = choices.includes(input);
+    }
+
+
+    if (input === "rock" || input === "paper" || input  === "scissors") {
+        return input;
+    } else {
+    
+        return getHumanChoice();
+        
+    }
+    
 }
 
-let choice = getHumanChoice();
-console.log(choice);
+let userChoice = getHumanChoice();
+console.log('User choice: ' + userChoice);
 
-function playRound(humanChoice, computerChoice) {
-    let humanInput = humanChoice.toLowerCase();
+
+function getComputerChoice() {
+    // 1) computer choice from array
+    
+    return choices[Math.floor(Math.random() * choices.length)];
+
+}
+
+let randomChoice = getComputerChoice();
+console.log('Computer choice: ' + randomChoice);
+
+
+
+
+function playRound() {
+    // 3) compare choices 
+    const computerChoice = getComputerChoice();
+    const humanChoice = getHumanChoice();
+    const winner = checkWinner(humanChoice, computerChoice);
+    console.log(`User choice: ${humanChoice}`);
+    console.log(`Computer choice: ${computerChoice}`);
+    console.log(winner);
+    console.log('-------------------');
+
+    return winner;
+}
+
+function checkWinner(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        return "It's a tie!";
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        return "User wins!";
+    } else {
+        return "Computer wins!";
+    }
+}
+  
+
+function startGame() {
+    // start game function & loop 5 rounds
+
+    for (let i = 0; i < 5; i++) {
+        playRound();
+    }
+
+    console.log("Game over! Thanks for playing.");
+
+}
+
+
+
