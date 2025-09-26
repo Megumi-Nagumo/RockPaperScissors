@@ -1,6 +1,34 @@
 
 
 const choices = ['rock', 'paper', 'scissors'];
+const winners = [];
+
+
+function startGame() {
+    // start game function & loop 5 rounds
+
+    for (let i = 1; i < 6; i++) {
+        playRound(i);
+    }
+    document.querySelector('.button').textContent = "Play Again";
+    console.log("Game over! Thanks for playing.");
+    logWins();
+   
+}
+
+
+function playRound(round) {
+    // 3) compare choices 
+    const computerChoice = getComputerChoice();
+    const humanChoice = getHumanChoice();
+    const winner = checkWinner(humanChoice, computerChoice);
+
+    winners.push(winner)
+    
+    logRound(humanChoice, computerChoice, winner, round);
+}
+
+
 
 
 function getHumanChoice(){
@@ -39,8 +67,6 @@ function getHumanChoice(){
     
 }
 
-let userChoice = getHumanChoice();
-console.log('User choice: ' + userChoice);
 
 
 function getComputerChoice() {
@@ -50,24 +76,11 @@ function getComputerChoice() {
 
 }
 
-let randomChoice = getComputerChoice();
-console.log('Computer choice: ' + randomChoice);
 
 
 
 
-function playRound() {
-    // 3) compare choices 
-    const computerChoice = getComputerChoice();
-    const humanChoice = getHumanChoice();
-    const winner = checkWinner(humanChoice, computerChoice);
-    console.log(`User choice: ${humanChoice}`);
-    console.log(`Computer choice: ${computerChoice}`);
-    console.log(winner);
-    console.log('-------------------');
 
-    return winner;
-}
 
 function checkWinner(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -83,17 +96,22 @@ function checkWinner(humanChoice, computerChoice) {
     }
 }
   
+function logWins() {
+    let userWins = winners.filter(winner => winner === "User wins!").length;
+    let computerWins = winners.filter(winner => winner === "Computer wins!").length;
+    let ties = winners.filter(winner => winner === "It's a tie!").length;
 
-function startGame() {
-    // start game function & loop 5 rounds
-
-    for (let i = 0; i < 5; i++) {
-        playRound();
-    }
-
-    console.log("Game over! Thanks for playing.");
+    console.log("Final Results:");
+    console.log(`User won ${userWins} times.`);
+    console.log(`Computer won ${computerWins} times.`);
+    console.log(`There were ${ties} ties.`);
 
 }
 
-
-
+function logRound(humanChoice, computerChoice, winner, round) {
+    console.log(`Round ${round}:`);
+    console.log(`User choice: ${humanChoice}`);
+    console.log(`Computer choice: ${computerChoice}`);
+    console.log(winner);
+    console.log('-------------------');
+}
